@@ -84,14 +84,13 @@ class Computer:
         input_device: InputDevice,
         storage_device: StorageDevice,
         processing_device: ProcessingDevice,
-        output_device: OutputDevice,
-       
-    ):
+        output_device: OutputDevice):
+        
         self._input_device = input_device
         self._storage_device = storage_device
         self._processing_device = processing_device
         self._output_device = output_device
-       
+
     def set_input_device(self, device: InputDevice) -> None:
         self._input_device = device
 
