@@ -135,7 +135,6 @@ class Laptop(Computer):
         self,
         wifi: WiFi, 
         bluetooth: Bluetooth ,
-       
     ):
         self.wifi = wifi
         self.bluetooth = bluetooth
