@@ -23,34 +23,34 @@ var outputDevices_1 = require("./outputDevices");
 // The Computer Interface
 var Computer = /** @class */ (function () {
     function Computer(inputDevice, storageDevice, processingDevice, outputDevice, wifi, bluetooth) {
-        this._inputDevice = inputDevice;
-        this._storageDevice = storageDevice;
-        this._processingDevice = processingDevice;
-        this._outputDevice = outputDevice;
+        this.inputDevice = inputDevice;
+        this.storageDevice = storageDevice;
+        this.processingDevice = processingDevice;
+        this.outputDevice = outputDevice;
     }
     Computer.prototype.setInputDevice = function (device) {
-        this._inputDevice = device;
+        this.inputDevice = device;
     };
     Computer.prototype.setStorageDevice = function (device) {
-        this._storageDevice = device;
+        this.storageDevice = device;
     };
     Computer.prototype.setProcessingDevice = function (device) {
-        this._processingDevice = device;
+        this.processingDevice = device;
     };
     Computer.prototype.setOutputDevice = function (device) {
-        this._outputDevice = device;
+        this.outputDevice = device;
     };
-    Computer.prototype.performInput = function () {
-        return this._inputDevice.input();
+    Computer.prototype.Input = function () {
+        return this.inputDevice.input();
     };
-    Computer.prototype.performStorage = function () {
-        return this._storageDevice.store() + " and " + this._storageDevice.retrieve();
+    Computer.prototype.Storage = function () {
+        return this.storageDevice.store() + " and " + this.storageDevice.retrieve();
     };
-    Computer.prototype.performProcessing = function () {
-        return this._processingDevice.process();
+    Computer.prototype.Processing = function () {
+        return this.processingDevice.process();
     };
-    Computer.prototype.performOutput = function () {
-        return this._outputDevice.output();
+    Computer.prototype.Output = function () {
+        return this.outputDevice.output();
     };
     return Computer;
 }());
@@ -77,25 +77,43 @@ var Laptop = /** @class */ (function (_super) {
 var keyboard = new inputDevices_1.Keyboard();
 var mouse = new inputDevices_1.Mouse();
 var ssd = new storageDevices_1.SSD();
+var hdd = new storageDevices_1.HDD();
 var cpu = new processingDevices_1.CPU();
+var gpu = new processingDevices_1.GPU();
 var monitor = new outputDevices_1.Monitor();
+var printer = new outputDevices_1.Printer();
 // Desktop does not support WiFi and Bluetooth technologies
 var computer = new Computer(keyboard, ssd, cpu, monitor);
 console.log("========= COMPUTER =================================");
-console.log(computer.performInput()); // Outputs: Keyboard input
-console.log(computer.performStorage()); // Outputs: SSD storing data and SSD retrieving data
-console.log(computer.performProcessing()); // Outputs: CPU processing data
-console.log(computer.performOutput()); // Outputs: Monitor output
+console.log(computer.Input()); // Outputs: Keyboard input
 computer.setInputDevice(mouse);
-console.log(computer.performInput()); // Outputs: Mouse input
+console.log(computer.Input()); // Outputs: Mouse input
+computer.setStorageDevice(hdd);
+console.log(computer.Storage()); // Outputs: HDD input
+console.log(computer.Processing()); // Outputs: CPU processing data
+computer.setProcessingDevice(gpu);
+console.log(computer.Processing()); // Outputs: GPU processing data
+console.log(computer.Output()); // Outputs: Monitor output
+computer.setOutputDevice(printer);
+console.log(computer.Output());
 // Laptop supports WiFi and Bluetooth technologies
 var laptop = new Laptop(keyboard, ssd, cpu, monitor);
 console.log("========= LAPTOP =================================");
-console.log(laptop.performInput()); // Outputs: Keyboard input
-console.log(laptop.performStorage()); // Outputs: SSD storing data and SSD retrieving data
-console.log(laptop.performProcessing()); // Outputs: CPU processing data
-console.log(laptop.performOutput()); // Outputs: Monitor output
-laptop.setInputDevice(mouse);
-console.log(laptop.performInput()); // Outputs: Mouse input
+computer.setInputDevice(keyboard);
+console.log(computer.Input()); // Outputs: Keyboard input
+computer.setInputDevice(mouse);
+console.log(computer.Input()); // Outputs: Mouse input
+computer.setStorageDevice(ssd);
+console.log(computer.Storage());
+computer.setStorageDevice(hdd);
+console.log(computer.Storage());
+computer.setProcessingDevice(cpu);
+console.log(computer.Processing());
+computer.setProcessingDevice(gpu);
+console.log(computer.Processing());
+computer.setOutputDevice(monitor);
+console.log(computer.Output());
+computer.setOutputDevice(printer);
+console.log(computer.Output());
 console.log(laptop.connectToWifi()); // Outputs: WiFi connected
 console.log(laptop.connectToBluetooth()); // Outputs: Bluetooth connected

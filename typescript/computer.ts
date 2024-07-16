@@ -21,10 +21,10 @@ interface Bluetooth {
 
 // The Computer Interface
 class Computer {
-    private _inputDevice: InputDevice;
-    private _storageDevice: StorageDevice;
-    private _processingDevice: ProcessingDevice;
-    private _outputDevice: OutputDevice;
+    private inputDevice: InputDevice;
+    private storageDevice: StorageDevice;
+    private processingDevice: ProcessingDevice;
+    private outputDevice: OutputDevice;
 
     constructor(
         inputDevice: InputDevice,
@@ -34,42 +34,44 @@ class Computer {
         wifi?: WiFi,
         bluetooth?: Bluetooth
     ) {
-        this._inputDevice = inputDevice;
-        this._storageDevice = storageDevice;
-        this._processingDevice = processingDevice;
-        this._outputDevice = outputDevice;
+        this.inputDevice = inputDevice;
+        this.storageDevice = storageDevice;
+        this.processingDevice = processingDevice;
+        this.outputDevice = outputDevice;
     }
 
     setInputDevice(device: InputDevice): void {
-        this._inputDevice = device;
+        this.inputDevice = device;
     }
 
     setStorageDevice(device: StorageDevice): void {
-        this._storageDevice = device;
+        this.storageDevice = device;
     }
 
     setProcessingDevice(device: ProcessingDevice): void {
-        this._processingDevice = device;
+        this.processingDevice = device;
     }
 
     setOutputDevice(device: OutputDevice): void {
-        this._outputDevice = device;
+        this.outputDevice = device;
     }
 
-    performInput(): string {
-        return this._inputDevice.input();
+
+
+    Input(): string {
+        return this.inputDevice.input();
+    }
+    
+    Storage(): string {
+        return this.storageDevice.store() + " and " + this.storageDevice.retrieve();
     }
 
-    performStorage(): string {
-        return this._storageDevice.store() + " and " + this._storageDevice.retrieve();
+    Processing(): string {
+        return this.processingDevice.process();
     }
 
-    performProcessing(): string {
-        return this._processingDevice.process();
-    }
-
-    performOutput(): string {
-        return this._outputDevice.output();
+    Output(): string {
+        return this.outputDevice.output();
     }
 
 }
@@ -99,30 +101,58 @@ class Laptop extends Computer implements WiFi, Bluetooth{
 let keyboard = new Keyboard();
 let mouse = new Mouse();
 let ssd = new SSD();
+let hdd = new HDD();
 let cpu = new CPU();
+let gpu = new GPU();
 let monitor = new Monitor();
+let printer = new Printer();
+
 
 
 // Desktop does not support WiFi and Bluetooth technologies
 let computer = new Computer(keyboard, ssd, cpu, monitor);
 console.log("========= COMPUTER =================================");
-console.log(computer.performInput());      // Outputs: Keyboard input
-console.log(computer.performStorage());    // Outputs: SSD storing data and SSD retrieving data
-console.log(computer.performProcessing()); // Outputs: CPU processing data
-console.log(computer.performOutput());     // Outputs: Monitor output
+console.log(computer.Input());      // Outputs: Keyboard input
 computer.setInputDevice(mouse);
-console.log(computer.performInput());      // Outputs: Mouse input
+console.log(computer.Input());      // Outputs: Mouse input
+ 
+computer.setStorageDevice(hdd);
+console.log(computer.Storage());      // Outputs: HDD input
+
+console.log(computer.Processing()); // Outputs: CPU processing data
+computer.setProcessingDevice(gpu);
+console.log(computer.Processing()); // Outputs: GPU processing data
+
+console.log(computer.Output());    // Outputs: Monitor output
+computer.setOutputDevice(printer);
+console.log(computer.Output());
+
 
 
 
 // Laptop supports WiFi and Bluetooth technologies
 let laptop = new Laptop(keyboard, ssd, cpu, monitor);
 console.log("========= LAPTOP =================================");
-console.log(laptop.performInput());      // Outputs: Keyboard input
-console.log(laptop.performStorage());    // Outputs: SSD storing data and SSD retrieving data
-console.log(laptop.performProcessing()); // Outputs: CPU processing data
-console.log(laptop.performOutput());     // Outputs: Monitor output
-laptop.setInputDevice(mouse);
-console.log(laptop.performInput());      // Outputs: Mouse input
+computer.setInputDevice(keyboard);
+console.log(computer.Input());      // Outputs: Keyboard input
+computer.setInputDevice(mouse);
+console.log(computer.Input());      // Outputs: Mouse input
+
+computer.setStorageDevice(ssd);
+console.log(computer.Storage());
+computer.setStorageDevice(hdd);
+console.log(computer.Storage());
+
+
+computer.setProcessingDevice(cpu);
+console.log(computer.Processing());
+computer.setProcessingDevice(gpu);
+console.log(computer.Processing());
+
+computer.setOutputDevice(monitor);
+console.log(computer.Output());
+computer.setOutputDevice(printer);
+console.log(computer.Output());
+
 console.log(laptop.connectToWifi());       // Outputs: WiFi connected
 console.log(laptop.connectToBluetooth());  // Outputs: Bluetooth connected
