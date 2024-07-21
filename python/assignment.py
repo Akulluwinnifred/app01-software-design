@@ -174,3 +174,4 @@ print(Laptop1.connectToWifi())  # Outputs: WiFi connected
 print(Laptop1.disconnectFromWifi()) # Outputs:WiFi disconnected
 from abc import ABC, abstractmethod
 
+
