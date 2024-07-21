@@ -85,7 +85,7 @@ class Laptop extends Computer implements WiFi, Bluetooth{
     disconnectFromWiFi(): string {
         return "WiFi disconnected";
     }
- 
+
     connectToBluetooth(): string {
         return "Bluetooth connected";
     }
