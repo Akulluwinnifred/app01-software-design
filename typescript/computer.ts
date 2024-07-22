@@ -3,7 +3,7 @@ import InputDevice, {Mouse, Keyboard} from "./inputDevices";
 import StorageDevice, {SSD, HDD} from "./storageDevices";
 import ProcessingDevice, {CPU, GPU} from "./processingDevices";
 import OutputDevice, {Monitor, Printer} from "./outputDevices";
-
+import Brand, {IBM,Dell,Hp,Lenovo} from "./brands";
 
 
 // WiFi & Bluetooth Devices
@@ -20,17 +20,19 @@ interface Bluetooth {
 
 
 // The Computer Interface
-class Computer {
+abstract class Computer {
     private inputDevice: InputDevice;
     private storageDevice: StorageDevice;
     private processingDevice: ProcessingDevice;
     private outputDevice: OutputDevice;
+    public brand: Brand;
 
     constructor(
         inputDevice: InputDevice,
         storageDevice: StorageDevice,
         processingDevice: ProcessingDevice,
         outputDevice: OutputDevice,
+        brand: Brand,
         wifi?: WiFi,
         bluetooth?: Bluetooth
     ) {
@@ -38,7 +40,10 @@ class Computer {
         this.storageDevice = storageDevice;
         this.processingDevice = processingDevice;
         this.outputDevice = outputDevice;
+        this.brand = brand;
     }
+
+    abstract manufacturer(): string 
 
     setInputDevice(device: InputDevice): void {
         this.inputDevice = device;
@@ -76,8 +81,17 @@ class Computer {
 
 }
 
+class Desktop extends Computer {
+    manufacturer(): string {
+        return "Desktop maunfactured by: " + this.brand.setBrand();
+    }
+}
 
 class Laptop extends Computer implements WiFi, Bluetooth{
+
+    manufacturer(): string {
+        return "Laptop maunfactured by: " + this.brand.setBrand();
+    }
 
     connectToWifi(): string {
         return "WiFi connected";
@@ -106,53 +120,59 @@ let cpu = new CPU();
 let gpu = new GPU();
 let monitor = new Monitor();
 let printer = new Printer();
+let hp = new Hp();
+let lenovo = new Lenovo();
 
 
 
 // Desktop does not support WiFi and Bluetooth technologies
-let computer = new Computer(keyboard, ssd, cpu, monitor);
-console.log("========= COMPUTER =================================");
-console.log(computer.Input());      // Outputs: Keyboard input
-computer.setInputDevice(mouse);
-console.log(computer.Input());      // Outputs: Mouse input
- 
-computer.setStorageDevice(hdd);
-console.log(computer.Storage());      // Outputs: HDD input
+// let computer = new Computer(keyboard, ssd, cpu, monitor);
+// console.log("========= COMPUTER =================================");
+// console.log(computer.Input());      // Outputs: Keyboard input
+// computer.setInputDevice(mouse);
+// console.log(computer.Input());      // Outputs: Mouse input
 
-console.log(computer.Processing()); // Outputs: CPU processing data
-computer.setProcessingDevice(gpu);
-console.log(computer.Processing()); // Outputs: GPU processing data
+// computer.setStorageDevice(hdd);
+// console.log(computer.Storage());      // Outputs: HDD input
 
-console.log(computer.Output());    // Outputs: Monitor output
-computer.setOutputDevice(printer);
-console.log(computer.Output());
+// console.log(computer.Processing()); // Outputs: CPU processing data
+// computer.setProcessingDevice(gpu);
+// console.log(computer.Processing()); // Outputs: GPU processing data
+
+// console.log(computer.Output());    // Outputs: Monitor output
+// computer.setOutputDevice(printer);
+// console.log(computer.Output());
 
 
 
 
 // Laptop supports WiFi and Bluetooth technologies
-let laptop = new Laptop(keyboard, ssd, cpu, monitor);
+let laptop = new Laptop(keyboard, ssd, cpu, monitor,hp);
 console.log("========= LAPTOP =================================");
-computer.setInputDevice(keyboard);
-console.log(computer.Input());      // Outputs: Keyboard input
-computer.setInputDevice(mouse);
-console.log(computer.Input());      // Outputs: Mouse input
 
-computer.setStorageDevice(ssd);
-console.log(computer.Storage());
-computer.setStorageDevice(hdd);
-console.log(computer.Storage());
+laptop.setInputDevice(keyboard);
+console.log(laptop.Input());      // Outputs: Keyboard input
+laptop.setInputDevice(mouse);
+console.log(laptop.Input());      // Outputs: Mouse input
+
+laptop.setStorageDevice(ssd);
+console.log(laptop.Storage());laptop.setStorageDevice(hdd);
+console.log(laptop.Storage());
 
 
-computer.setProcessingDevice(cpu);
-console.log(computer.Processing());
-computer.setProcessingDevice(gpu);
-console.log(computer.Processing());
+laptop.setProcessingDevice(cpu);
+console.log(laptop.Processing());
+laptop.setProcessingDevice(gpu);
+console.log(laptop.Processing());
 
-computer.setOutputDevice(monitor);
-console.log(computer.Output());
-computer.setOutputDevice(printer);
-console.log(computer.Output());
+laptop.setOutputDevice(monitor);
+console.log(laptop.Output());
+laptop.setOutputDevice(printer);
+console.log(laptop.Output());
 
 console.log(laptop.connectToWifi());       // Outputs: WiFi connected
 console.log(laptop.connectToBluetooth());  // Outputs: Bluetooth connected
+console.log(laptop.manufacturer());  
+
+let desktop = new Desktop(keyboard, ssd, cpu, monitor,lenovo);
+console.log(desktop.manufacturer()); 
