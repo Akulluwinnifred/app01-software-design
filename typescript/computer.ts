@@ -45,6 +45,10 @@ abstract class Computer {
 
     abstract manufacturer(): string 
 
+    boot(){
+        this.brand.boot();
+    }
+
     setInputDevice(device: InputDevice): void {
         this.inputDevice = device;
     }
@@ -149,6 +153,8 @@ let lenovo = new Lenovo();
 // Laptop supports WiFi and Bluetooth technologies
 let laptop = new Laptop(keyboard, ssd, cpu, monitor,hp);
 console.log("========= LAPTOP =================================");
+
+laptop.boot()
 
 laptop.setInputDevice(keyboard);
 console.log(laptop.Input());      // Outputs: Keyboard input

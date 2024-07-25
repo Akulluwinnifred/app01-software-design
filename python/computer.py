@@ -28,6 +28,9 @@ class Computer(ABC):
     def manufacture(self) -> str:
         pass
 
+    def boot(self):
+        self.brand.boot()
+    
     def set_input(self, device: InputDevice) -> None:
         self._input_device = device
 
@@ -58,31 +61,29 @@ class Computer(ABC):
 
 class DesktopComputer(Computer):
     def manufacture(self):
-        return f"Manufacturing Desktop Computer {self.brand.set_brand()}"
+        return f"Desktop Manufactured by the  {self.brand.set_brand()}"
 
 
 class WalltopComputer(Computer):
     def manufacture(self):
-        return f"Manufacturing Walltop Computer {self.brand.set_brand()}"
+        return f"Walltop Manufactured by the  {self.brand.set_brand()}"
 
 
 class TabletComputer(Computer):
     def manufacture(self):
-        return f"Manufacturing Tablet Computer {self.brand.set_brand()}"
+        return f"Tablet Manufactured by the  {self.brand.set_brand()}"
 
 
 class PalmtopComputer(Computer):
     def manufacture(self):
-        return f"Manufacturing Palmtop Computer {self.brand.set_brand()}"
-        
+        return f"Palmtop Manufactured by the  {self.brand.set_brand()}"
 
 
 # Laptop extends Computer and implements wifi and Bluetooth interfaces
 class Laptop(Computer, WiFiDevices, BluetoothDevices):
 
     def manufacture(self):
-        return f"Manufacturing Laptop Computer {self.brand.set_brand()}"
-        
+        return f"Laptop Manufactured by the  {self.brand.set_brand()}"
 
     def connectToBluetooth(self) -> str:
         return "Bluetooth connected"
@@ -117,9 +118,54 @@ monitor = Monitor()
 # # Create a computer without WiFi and Bluetooth support
 
 
-# Laptop1 = Laptop(keyboard, ssd, cpu, monitor, Dell())
+Laptop1 = Laptop(keyboard, ssd, cpu, monitor, Dell())
+Laptop2 = Laptop(keyboard, ssd, cpu, monitor, Lenovo())
+Laptop3 = Laptop(keyboard, ssd, cpu, monitor, HP())
+Laptop4 = Laptop(keyboard, ssd, cpu, monitor, IBM())
+Laptop4.boot()
 
-desktop1 = DesktopComputer(keyboard, ssd, cpu, monitor, Dell())
+walltop1 = WalltopComputer(keyboard, ssd, cpu, monitor, Lenovo())
+walltop2 = WalltopComputer(keyboard, ssd, cpu, monitor, Dell())
+walltop3 = WalltopComputer(keyboard, ssd, cpu, monitor, IBM())
+walltop4 = WalltopComputer(keyboard, ssd, cpu, monitor, HP())
+walltop4.boot()
+
+palmtop1 = PalmtopComputer(keyboard, ssd, cpu, monitor, IBM())
+palmtop2 = PalmtopComputer(keyboard, ssd, cpu, monitor, Dell())
+palmtop3 = PalmtopComputer(keyboard, ssd, cpu, monitor, HP())
+palmtop4 = PalmtopComputer(keyboard, ssd, cpu, monitor, Lenovo())
+palmtop4.boot()
+
+desktop1 = DesktopComputer(keyboard, ssd, cpu, monitor, HP())
+desktop2 = DesktopComputer(keyboard, ssd, cpu, monitor, Dell())
+desktop3 = DesktopComputer(keyboard, ssd, cpu, monitor, IBM())
+desktop4 = DesktopComputer(keyboard, ssd, cpu, monitor, Lenovo())
+desktop2.boot()
 
 print("=================Laptop===============")
-print(desktop1.manufacture())  # Outputs:WiFi disconnected
+print(Laptop1.manufacture())
+print(Laptop2.manufacture())
+print(Laptop3.manufacture())
+print(Laptop4.manufacture())
+print("")
+
+print("=================Walltop===============")
+print(walltop1.manufacture())
+print(walltop2.manufacture())
+print(walltop3.manufacture())
+print(walltop4.manufacture())
+print("")
+
+print("=================Palmtop===============")
+print(palmtop1.manufacture())
+print(palmtop2.manufacture())
+print(palmtop3.manufacture())
+print(palmtop4.manufacture())
+print("")
+
+print("=================Desktop===============")
+print(desktop1.manufacture())
+print(desktop2.manufacture())
+print(desktop3.manufacture())
+print(desktop4.manufacture())
+print("")

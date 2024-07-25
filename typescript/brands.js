@@ -7,6 +7,9 @@ var Dell = /** @class */ (function () {
     Dell.prototype.setBrand = function () {
         return "Keyboard input";
     };
+    Dell.prototype.boot = function () {
+        console.log("Dell  booting...");
+    };
     return Dell;
 }());
 exports.Dell = Dell;
@@ -15,6 +18,9 @@ var IBM = /** @class */ (function () {
     }
     IBM.prototype.setBrand = function () {
         return "Brand: IBM";
+    };
+    IBM.prototype.boot = function () {
+        console.log("IBM  booting...");
     };
     return IBM;
 }());
@@ -25,6 +31,9 @@ var Lenovo = /** @class */ (function () {
     Lenovo.prototype.setBrand = function () {
         return "Brand: Lenovo";
     };
+    Lenovo.prototype.boot = function () {
+        console.log("Lenovo  booting...");
+    };
     return Lenovo;
 }());
 exports.Lenovo = Lenovo;
@@ -33,6 +42,9 @@ var Hp = /** @class */ (function () {
     }
     Hp.prototype.setBrand = function () {
         return "Brand: Hp";
+    };
+    Hp.prototype.boot = function () {
+        console.log("HP  booting...");
     };
     return Hp;
 }());

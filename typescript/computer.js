@@ -30,6 +30,9 @@ var Computer = /** @class */ (function () {
         this.outputDevice = outputDevice;
         this.brand = brand;
     }
+    Computer.prototype.boot = function () {
+        this.brand.boot();
+    };
     Computer.prototype.setInputDevice = function (device) {
         this.inputDevice = device;
     };
@@ -116,6 +119,7 @@ var lenovo = new brands_1.Lenovo();
 // Laptop supports WiFi and Bluetooth technologies
 var laptop = new Laptop(keyboard, ssd, cpu, monitor, hp);
 console.log("========= LAPTOP =================================");
+laptop.boot();
 laptop.setInputDevice(keyboard);
 console.log(laptop.Input()); // Outputs: Keyboard input
 laptop.setInputDevice(mouse);
